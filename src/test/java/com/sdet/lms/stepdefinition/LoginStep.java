@@ -4,20 +4,25 @@ package com.sdet.lms.stepdefinition;
 import com.sdet.lms.pageobjects.Login;
 import com.sdet.lms.utilities.BaseClass;
 
+import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+
 public class LoginStep extends BaseClass {
 	
 	Login login=new  Login(driver);
+    @Before
+	public void setUp() {
+    	setup();
 
+    }
 
 	@Given("User is on the browser")
 	public void user_is_on_the_browser() {
 		
-		setup();
-		System.out.println("User is on Browser");
+				System.out.println("User is on Browser");
 	  
 	}
 
