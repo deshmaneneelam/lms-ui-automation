@@ -37,11 +37,11 @@ public class ConfigReader {
 		return property.getProperty("url");
 	}
 	
-	public String getUsername() {
+	public String getUsername(String username) {
 		return property.getProperty("username");
 	}
 	
-	public String getPass() {
+	public String getPass(String password ) {
 		return property.getProperty("password");
 	}
 	
