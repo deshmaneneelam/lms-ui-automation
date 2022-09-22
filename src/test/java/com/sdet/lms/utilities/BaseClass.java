@@ -1,11 +1,8 @@
 package com.sdet.lms.utilities;
 
-import org.junit.AfterClass;
+import java.time.Duration;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.BeforeClass;
-
-
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BaseClass {
@@ -16,9 +13,7 @@ public class BaseClass {
 	/**
 	 * Set up application
 	 */
-	@BeforeClass
-	public void setup() {
-		
+	public void setup() {	
 		initBrowser();
 	}
 	
@@ -35,6 +30,11 @@ public class BaseClass {
 			
 			openUrl(configReader.getURL());
 			
+			driver.manage().window().maximize();
+			driver.manage().deleteAllCookies();
+			driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(Util.PAGE_LOAD_TIMEOUT));
+			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(Util.IMPLICIT_WAIT));
+			
 		}
 		
 	}
@@ -47,8 +47,8 @@ public class BaseClass {
 	 * Close browser
 	 */
 	
-	@AfterClass
+	/*@AfterClass
 	public void close() {
 		driver.quit();
-	}
+	}*/
 }

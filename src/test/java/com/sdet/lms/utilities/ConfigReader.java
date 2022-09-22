@@ -8,6 +8,10 @@ public class ConfigReader {
 
 	Properties property;
 	
+	/**
+	 * call loadConfig while instantiate 
+	 * 
+	 */
 	public ConfigReader() {
 		try {
 			loadConfig();
@@ -17,6 +21,10 @@ public class ConfigReader {
 		}
 	}
 
+	/**
+	 * Load properties 
+	 * @throws Exception
+	 */
 	public void loadConfig() throws Exception {
 		
 		try {
@@ -33,15 +41,27 @@ public class ConfigReader {
 		
 	}
 	
+	/**
+	 * get url from properties
+	 * @return
+	 */
 	public String getURL() {	
 		return property.getProperty("url");
 	}
 	
-	public String getUsername(String username) {
+	/**
+	 * get username from properties
+	 * @return
+	 */
+	public String getUsername() {
 		return property.getProperty("username");
 	}
 	
-	public String getPass(String password ) {
+	/**
+	 * get password from properties
+	 * @return
+	 */
+	public String getPass() {
 		return property.getProperty("password");
 	}
 	
