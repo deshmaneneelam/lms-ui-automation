@@ -61,6 +61,7 @@ public class ConfigReader {
 	 * get password from properties
 	 * @return
 	 */
+
 	public String getPass() {
 		return property.getProperty("password");
 	}

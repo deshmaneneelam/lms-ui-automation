@@ -1,14 +1,17 @@
 package com.sdet.lms.utilities;
 
 import java.time.Duration;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterClass;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BaseClass {
 
-	public WebDriver driver = null;
-	public ConfigReader configReader;
+	public static WebDriver driver = null;
+	public static ConfigReader configReader;
 	
 	/**
 	 * Set up application
@@ -47,8 +50,8 @@ public class BaseClass {
 	 * Close browser
 	 */
 	
-	/*@AfterClass
+	@AfterClass
 	public void close() {
 		driver.quit();
-	}*/
+	}
 }
