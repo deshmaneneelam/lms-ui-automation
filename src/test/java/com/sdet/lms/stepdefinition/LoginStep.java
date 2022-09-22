@@ -22,7 +22,25 @@ public class LoginStep extends BaseClass {
 	@Given("User is on the browser")
 	public void user_is_on_the_browser() {
 		
-				System.out.println("User is on Browser");
+		System.out.println("User is on Browser");
+		Login login = new Login(driver);
+		login.enterUsername(configReader.getUsername("username"));
+		login.enterPassword(configReader.getPass("password"));
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		login.loginClick();
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
 	  
 	}
 
