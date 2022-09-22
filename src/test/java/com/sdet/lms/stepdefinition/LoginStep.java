@@ -13,11 +13,11 @@ import io.cucumber.java.en.When;
 public class LoginStep extends BaseClass {
 	
 	Login login=new  Login(driver);
-    @Before
+   /* @Before
 	public void setUp() {
     	setup();
 
-    }
+    }*/
 
 	@Given("User is on the browser")
 	public void user_is_on_the_browser() {
