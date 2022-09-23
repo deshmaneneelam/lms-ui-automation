@@ -33,8 +33,8 @@ public class LoginStep extends BaseClass {
 		
 		System.out.println("User is on Browser");
 		Login login = new Login(driver);
-		login.enterUsername(configReader.getUsername("username"));
-		login.enterPassword(configReader.getPass("password"));
+		login.enterUsername(configReader.getUsername());
+		login.enterPassword(configReader.getPass());
 		try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
