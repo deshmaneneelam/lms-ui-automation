@@ -2,10 +2,10 @@ package com.sdet.lms.utilities;
 
 import java.time.Duration;
 
-import org.junit.BeforeClass;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
@@ -51,13 +51,11 @@ public class BaseClass {
 	/**
 	 * Close browser
 	 */
-	
 	@AfterClass
 	public void close() {
 		if(driver!=null) {
 			driver.quit();
 			driver=null;
 		}
-		
 	}
 }

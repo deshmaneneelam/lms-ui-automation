@@ -6,7 +6,7 @@ import io.cucumber.junit.CucumberOptions;
 import io.cucumber.junit.Cucumber;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features="src/test/resources/feature/Program.feature", 
+@CucumberOptions(features="src/test/resources/feature/Programs", 
 glue= {"com.sdet.lms.stepdefinition"},
 monochrome=true,
 plugin= {"pretty",

@@ -32,6 +32,17 @@ public class Program extends BaseClass {
 	@FindBy(xpath="//button[@class='p-button-danger p-button p-component p-button-icon-only']")
 	private WebElement multipleDeleteBtn;
 	
+	@FindBy(xpath="//input[@class='p-inputtext p-component']")
+	private WebElement searchText;
+	
+	@FindBy(xpath="//button[@id='new']")
+	private WebElement addProgramBtn;
+	
+	@FindBy(xpath="//div[@class='p-datatable-footer ng-star-inserted']/div")
+	private WebElement totalEntries;
+	
+	@FindBy(xpath="//i[@class='pi pi-search']")
+	private WebElement searchElement;
 	
 	/**
 	 * Verify title
@@ -58,11 +69,27 @@ public class Program extends BaseClass {
 		return totalCount.getText();
 	}
 	
+	public String getTotalEntries() {
+		String entries = totalEntries.getText();
+		return entries.substring(19,21);
+	}
+	
 	/**
 	 * Check if delete button is disabled 
 	 * @return boolean
 	 */
 	public boolean isDisabled() {
 		return multipleDeleteBtn.isEnabled();
+	}
+	
+	public String searchBoxText() {
+		return  searchText.getAttribute("placeholder");	
+	}
+	
+	public WebElement getSearchElement() {
+		return searchText;
+	}
+	public void addProgram() {
+		addProgramBtn.click();
 	}
 }
