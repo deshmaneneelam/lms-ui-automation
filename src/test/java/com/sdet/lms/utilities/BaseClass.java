@@ -2,6 +2,7 @@ package com.sdet.lms.utilities;
 
 import java.time.Duration;
 
+import org.junit.BeforeClass;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterClass;
@@ -16,6 +17,7 @@ public class BaseClass {
 	/**
 	 * Set up application
 	 */
+	@BeforeClass
 	public void setup() {	
 		initBrowser();
 	}
@@ -52,6 +54,10 @@ public class BaseClass {
 	
 	@AfterClass
 	public void close() {
-		driver.quit();
+		if(driver!=null) {
+			driver.quit();
+			driver=null;
+		}
+		
 	}
 }
