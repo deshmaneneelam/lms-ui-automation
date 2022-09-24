@@ -1,23 +1,14 @@
 package com.sdet.lms.pageobjects;
 
-import java.awt.List;
-import java.awt.print.Printable;
 import java.util.Arrays;
-import java.util.Collections;
 
-import org.apache.commons.exec.launcher.Java13CommandLauncher;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.Assert;
-import org.testng.asserts.SoftAssert;
 
-import com.sdet.lms.utilities.BaseClass;
-
-public class Batch extends BaseClass {
+public class Batch {
 
 	WebDriver driver;
 
