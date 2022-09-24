@@ -8,8 +8,10 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.Test;
 
 import com.sdet.lms.utilities.BaseClass;
+import com.sdet.lms.utilities.ContextUI;
+import com.sdet.lms.utilities.SingletonDriver;
 
-public class Program extends BaseClass {
+public class Program {
 		
 	WebDriver driver;
 	
@@ -19,8 +21,9 @@ public class Program extends BaseClass {
 	 */
 	public Program(WebDriver d){
 		 this.driver = d;
-		PageFactory.initElements(driver, this);
+		PageFactory.initElements(d, this);
 	}
+	
 	
 	@CacheLookup
 	@FindBy(linkText="Program")

@@ -11,14 +11,16 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BaseClass {
 
-	public static WebDriver driver = null;
-	public static ConfigReader configReader;
+	protected WebDriver driver;
+	
+	protected ConfigReader configReader;
 	
 	/**
 	 * Set up application
 	 */
 	@BeforeClass
 	public void setup() {	
+		System.out.println("in set up");
 		initBrowser();
 	}
 	
@@ -27,7 +29,12 @@ public class BaseClass {
 	 */
 	private void initBrowser() {
 		
+		System.out.println("In initBrower");
+		
 		if(driver == null) {
+			
+			System.out.println("In initBrower driver");
+			
 			WebDriverManager.chromedriver().setup();
 			driver = new ChromeDriver();
 			
@@ -48,14 +55,17 @@ public class BaseClass {
 		driver.get(url);
 	}
 	
+	public WebDriver getDriver() {
+		return driver;
+	}
+	
 	/**
 	 * Close browser
 	 */
-	@AfterClass
+	//@AfterClass
 	public void close() {
-		if(driver!=null) {
+		if(driver != null) {
 			driver.quit();
-			driver=null;
 		}
 	}
 }

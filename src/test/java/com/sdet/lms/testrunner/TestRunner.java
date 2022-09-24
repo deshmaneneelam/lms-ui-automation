@@ -13,7 +13,10 @@ import io.cucumber.testng.CucumberOptions;
 
 @RunWith(Cucumber.class)
 @CucumberOptions( 
-		features = {"src/test/resources/feature/User.feature"},
+		features = {"src/test/resources/feature/User.feature",
+				"src/test/resources/feature/Programs/Heading.feature",
+				"src/test/resources/feature/Programs/Footer.feature",
+				"src/test/resources/feature/Batch.feature"},
 		glue = { "com.sdet.lms.stepdefinition" },
 		
 		plugin = { "pretty", "html:target/LmsBdd.html" },
