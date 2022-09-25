@@ -19,7 +19,7 @@ public class SharedStep {
 	
 	@Before
 	public void initiateLoginBeforeEachScenario() {
-		Login login = new Login(context.getDriver());
+		Login login = context.getPageObjectManager().getLoginPage();//new Login(context.getDriver());
 		login.enterUsername(context.getConfigReader().getUsername());
 		login.enterPassword(context.getConfigReader().getPass());
 		login.loginClick();
@@ -27,7 +27,6 @@ public class SharedStep {
 	
 	@Given("User is logged on to LMS website")
 	public void user_is_logged_on_to_lms_website() {
-	   
 	    System.out.println("Step #1");
 	}
 }

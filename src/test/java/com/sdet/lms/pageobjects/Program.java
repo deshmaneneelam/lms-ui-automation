@@ -1,15 +1,19 @@
 package com.sdet.lms.pageobjects;
 
+import java.time.Duration;
+import java.util.List;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.annotations.Test;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
-import com.sdet.lms.utilities.BaseClass;
-import com.sdet.lms.utilities.ContextUI;
-import com.sdet.lms.utilities.SingletonDriver;
+import com.sdet.lms.utilities.Util;
 
 public class Program {
 		
@@ -46,6 +50,31 @@ public class Program {
 	
 	@FindBy(xpath="//i[@class='pi pi-search']")
 	private WebElement searchElement;
+	
+	@FindBy(xpath="//tbody/tr[@class='ng-star-inserted']")
+	private List<WebElement> tbody;
+	
+	@FindBy(xpath="//td[2]")
+	private WebElement nameCol;
+	
+	@FindBy(xpath="//div[@class='p-checkbox-box']")
+	private WebElement multilCheck;
+	
+	@FindBy(xpath="//div[@aria-checked='true']")
+	private List<WebElement> checkedBoxes;
+	
+	@FindBy(xpath="//tbody//div[@aria-checked='true']")
+	private WebElement rowCheckBoxIfChecked;
+	
+	@FindBy(xpath="//tbody//div[@role='checkbox']")
+	private WebElement rowCheckBoxes;
+	
+	@FindBy(xpath="//tbody/tr/td/div[@class='action']/span[1]/button/span")
+	private WebElement editProgramBtn;
+	
+	
+	
+	By dialogBox = By.xpath("//p-dialog[@header='Program Details']");
 	
 	/**
 	 * Verify title
@@ -94,5 +123,76 @@ public class Program {
 	}
 	public void addProgram() {
 		addProgramBtn.click();
+	}
+	
+	public List<WebElement> getTbody() {
+		return tbody;
+	}
+	
+	/*public void getMultipleCheckBox() {
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		multilCheck.click();
+		System.out.println("Aftercheck");
+		
+	}
+	
+	public void areBoxesChecked() {
+		
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		List<WebElement> check = new WebDriverWait(driver, Duration.ofSeconds(50))
+		        .until(ExpectedConditions.visibilityOfAllElements(checkedBoxes));
+		
+		
+		//List<WebElement> check =  checkedBoxes;
+		System.out.println("check::"+check.size());
+		for(int i=0;i<check.size();i++) {
+			boolean c = check.get(i).isSelected();
+			System.out.println("is checked : "+ c);
+			if(c==false) {
+				Assert.assertEquals(false,true);
+			}else {
+				System.out.println("Checked");
+			}
+		}
+	}*/
+	
+	public void isChecked() {
+		String c = driver.findElement(By.xpath("//tbody//div[@aria-checked='true']")).getAttribute("class");
+		if(c.contains(Util.CHECK_HIGHLIGHT)) {
+			System.out.println("class"+c);
+		}else {
+			Assert.assertEquals(c, Util.CHECK_HIGHLIGHT);
+		}
+		//WebElement className = rowCheckBoxIfChecked.getAttribute();
+	}
+	
+	public void selectProgram() {		
+		rowCheckBoxes.click();
+	}
+	
+	public WebElement clickEdit() {
+		System.out.println("*****click edit****");
+		return editProgramBtn;
+	}
+	
+	public String getPopupScreen() {
+		WebElement x = new WebDriverWait(driver, Duration.ofSeconds(10))
+		        .until(ExpectedConditions.presenceOfElementLocated(dialogBox));
+		System.out.println("After popup click ");
+		return x.getText();
+	}
+	
+	public WebElement getNameCol() {
+		return nameCol;
 	}
 }
