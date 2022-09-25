@@ -17,7 +17,7 @@ public class SharedStep {
 		this.context = c;
 	}
 	
-	@Before
+	@Before("not @sanity")
 	public void initiateLoginBeforeEachScenario() {
 		Login login = context.getPageObjectManager().getLoginPage();//new Login(context.getDriver());
 		login.enterUsername(context.getConfigReader().getUsername());

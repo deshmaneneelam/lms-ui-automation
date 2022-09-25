@@ -5,44 +5,65 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import com.sdet.lms.utilities.BaseClass;
 
-public class Login extends BaseClass{
+public class Login{
 	
-WebDriver driver;
-	
-
-	public Login (WebDriver driver)
-	{
+	WebDriver driver;
+		
+	public Login (WebDriver driver){
 		this.driver=driver;
 		PageFactory.initElements(driver, this);
 	}
 	
 	@FindBy(id="username")
-   WebElement userName;
-	
+	WebElement userName;
+		
 	@FindBy(id="password")
 	WebElement passWord;
 	
-	@FindBy(id="login")
+	@FindBy(xpath="//button[@type='submit']")
 	WebElement loginBtn;
-
-   public void  enterUsername(String username)
-   {
-	   userName.sendKeys(username);
-	  
-   }
-   
-   public void  enterPassword(String password)
-   {
-	   passWord.sendKeys(password);
-	  
-   }
-   public void loginClick()
-	{
-	   loginBtn.click();
+	
+	@FindBy(xpath="//form/p")
+	WebElement isLoginPage;
+	
+	@FindBy(xpath="//body//span")
+	WebElement pageTitle;
+	
+	/*public void login(String username, String password)  {
+	userName.sendKeys(username);
+	passWord.sendKeys(password);
+	loginBtn.click();	
+	}*/
+	
+	public void  enterUsername(String username){
+		userName.sendKeys(username);
+	}
+	   
+	public void  enterPassword(String password){
+		passWord.sendKeys(password);
+	}
+	
+	public void loginClick(){
+		 loginBtn.click();
+	}
+	
+	public String getUserName() {
+		return userName.getText();
+	}
+	
+	public String getPassWord() {
+		System.out.println("passWord"+passWord.getText());
+		return passWord.getText();
 	}
    
-   
-   
+	public String confirmLoginPage() {
+		return isLoginPage.getText();
+	}
+	
+	public String getPageTitle() {
+		return driver.getTitle();
+	}
 }
+
+   

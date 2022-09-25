@@ -158,5 +158,42 @@ public class ProgramStep {
 		//programPage.getPopupScreen();
 	}
 	
+	@When("User clicks on Delete button")
+	public void user_clicks_on_delete_button() {
+		programPage.selectProgram();
+		programPage.clickMultipleDelete();
+	}
 	
+	@Then("User lands on Confirm Deletion form.")
+	public void user_lands_on_confirm_deletion_form() {
+		String c = programPage.confirmDeleteAlert();
+	    System.out.println("delete text::"+c);
+	    Assert.assertEquals(c, Util.CONFIRM_ALERT);
+	}
+	
+	@Given("User is on Confirm Deletion form")
+	public void user_is_on_confirm_deletion_form() {
+		user_clicks_on_delete_button();
+	}
+
+	@When("User clicks no button")
+	public void user_clicks_no_button() {
+	   programPage.clickNoBtn();
+	}
+
+	@Then("User can see confirm deletion form disappears")
+	public void user_can_see_confirm_deletion_form_disappears() {	
+		programPage.isExist().isDisplayed();
+	    System.out.println("delete text::"+programPage.isExist().isDisplayed());
+	}
+	
+	@When("User clicks Yes button")
+	public void user_clicks_yes_button() {
+		programPage.clickYesBtn();
+	}
+
+	@Then("User can see success message")
+	public void user_can_see_success_message() {
+	    
+	}
 }

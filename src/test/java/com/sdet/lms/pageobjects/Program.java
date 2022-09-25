@@ -72,9 +72,22 @@ public class Program {
 	@FindBy(xpath="//tbody/tr/td/div[@class='action']/span[1]/button/span")
 	private WebElement editProgramBtn;
 	
+	@FindBy(xpath="//button[@class='p-button-danger p-button p-component p-button-icon-only']//span[@class='p-button-icon pi pi-trash']")
+	private WebElement commonDeleteBtn;
 	
+	@FindBy(xpath="//div[@class='p-dialog-header ng-tns-c133-4 ng-star-inserted']/span")
+	private WebElement deleteAlert;
 	
 	By dialogBox = By.xpath("//p-dialog[@header='Program Details']");
+	
+	@FindBy(xpath="//p-confirmdialog//div[3]/button[1]")
+	private WebElement deleteNoBtn;
+	
+	@FindBy(xpath="//p-confirmdialog//div[3]/button[2]")
+	private WebElement deleteYesBtn;
+	
+	@FindBy(xpath="//p-toast//div[@role='alert']//div/div[1]")
+	private WebElement successMsg;
 	
 	/**
 	 * Verify title
@@ -194,5 +207,25 @@ public class Program {
 	
 	public WebElement getNameCol() {
 		return nameCol;
+	}
+	
+	public void clickMultipleDelete() {
+		multipleDeleteBtn.click();
+	}
+	
+	public String confirmDeleteAlert() {
+		return deleteAlert.getText();
+	}
+	
+	public void clickNoBtn() {
+		deleteNoBtn.click();
+	}
+	
+	public void clickYesBtn() {
+		deleteYesBtn.click();
+	}
+	
+	public WebElement isExist() {
+		return deleteAlert;
 	}
 }
