@@ -37,11 +37,11 @@ public class PageObjectManager {
 		return (loginPage == null) ? loginPage = new Login(driver) : loginPage;
 	}
 	
-	/*public Assignment getAssignmentPage() {
+	public Assignment getAssignmentPage() {
 		return (assignPage == null) ? assignPage = new Assignment(driver) : assignPage;
 	}
 	
-	public HomePage getHomePage() {
+	/*public HomePage getHomePage() {
 		return (homePage == null) ? homePage = new HomePage(driver) : homePage;
 	}*/
 	public Registration getRegistrationPage() {
