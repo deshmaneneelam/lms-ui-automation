@@ -5,11 +5,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.annotations.Test;
-
-import com.sdet.lms.utilities.BaseClass;
-import com.sdet.lms.utilities.ContextUI;
-import com.sdet.lms.utilities.SingletonDriver;
 
 public class Program {
 		

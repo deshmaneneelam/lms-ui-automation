@@ -1,25 +1,12 @@
 package com.sdet.lms.stepdefinition;
 
-import static org.testng.Assert.assertEquals;
-
-import java.time.Duration;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
-import com.sdet.lms.pageobjects.Login;
-import com.sdet.lms.pageobjects.PageObjectManager;
 import com.sdet.lms.pageobjects.Program;
-import com.sdet.lms.utilities.BaseClass;
-import com.sdet.lms.utilities.Context;
 import com.sdet.lms.utilities.ContextUI;
-import com.sdet.lms.utilities.SingletonDriver;
 import com.sdet.lms.utilities.Util;
 
 import io.cucumber.java.After;
-import io.cucumber.java.Before;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
