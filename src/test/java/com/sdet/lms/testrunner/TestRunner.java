@@ -19,9 +19,9 @@ import io.cucumber.testng.CucumberOptions;
 		plugin = { "pretty", "html:target/LmsBdd.html", "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm" },
 		monochrome = true)*/
 @CucumberOptions( 
-		features = {"src/test/resources/feature/User.feature"},
+		features = {"src/test/resources/feature/Programs/"},
 		glue = { "com.sdet.lms.stepdefinition" },
-				tags = "@runit",
+				tags = "not @runit",
 		plugin = { "pretty", "html:target/LmsBdd.html", "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm" },
 		monochrome = true)
 public class TestRunner extends AbstractTestNGCucumberTests {
