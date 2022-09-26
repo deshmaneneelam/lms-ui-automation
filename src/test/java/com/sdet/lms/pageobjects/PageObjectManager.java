@@ -24,13 +24,13 @@ public class PageObjectManager {
 	public Batch getBatchPage() {
 		return (batchPage == null) ? batchPage = new Batch(driver) : batchPage;
 	}
+
+	public User getUserPage() {
+		return (userPage == null) ? userPage = new User(driver) : userPage;
+	}
 	
 	public Login getLoginPage() {
 		return (loginPage == null) ? loginPage = new Login(driver) : loginPage;
-	}
-	
-	public User getUserPage() {
-		return (userPage == null) ? userPage = new User(driver) : userPage;
 	}
 	
 	/*public Assignment getAssignmentPage() {
