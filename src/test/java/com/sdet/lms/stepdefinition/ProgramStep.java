@@ -1,10 +1,13 @@
 package com.sdet.lms.stepdefinition;
 
+import java.time.Duration;
 import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import com.paulhammant.ngwebdriver.NgWebDriver;
@@ -88,25 +91,31 @@ public class ProgramStep {
 	@Then("^Entries for (.*) in (.*) are shown$")
 	public void entries_for_text_in_text_are_shown(String searchPhrase,String columnName) {
 		
+		System.out.println( columnName.substring( 1, columnName.length() - 1 ) );
+		columnName = columnName.substring( 1, columnName.length() - 1 );
 		ngDriver.waitForAngularRequestsToFinish();
 		
 		List<WebElement> rows = programPage.getTbody();
 		
-		System.out.println("row count::"+rows.size());
+		System.out.println("row count::"+rows.size()+"Column type:: "+columnName);
 		
 		int totalCount = rows.size();
 		if(totalCount == 0) {
 			System.out.println("No Records");
 		}else {
 			for(int i=0;i<totalCount;i++) {
-				String col ;
-				if(columnName=="nameColumn") {
+				String col=null ;
+				if(columnName.equalsIgnoreCase("nameColumn")) {
+					System.out.println("columnName::"+columnName);
+					System.out.println("Get text::"+rows.get(i).findElement(By.xpath("//td[2]")).getText());
 					col = rows.get(i).findElement(By.xpath("//td[2]")).getText();
-				}else {
+				} else if(columnName.equalsIgnoreCase("descColumn")) {
 					col = rows.get(i).findElement(By.xpath("//td[3]")).getText();
+				} else if(columnName.equalsIgnoreCase("actionColumn")) {
+					col = rows.get(i).findElement(By.xpath("//td[4]")).getText();
 				}
-				System.out.println("Column::"+col+"::row::"+i);
-				System.out.println("Is string matchting::"+ columnName.equalsIgnoreCase(searchPhrase));
+				System.out.println(col);
+				System.out.println(searchPhrase);
 				if(col.contains(searchPhrase)) {
 					System.out.println("Search::"+col);
 				}
@@ -122,7 +131,7 @@ public class ProgramStep {
 	}
 
 	
-	@After
+	//@After
 	public void close() {
 		System.out.println("In close");
 		//context.getDriver().quit();
@@ -158,10 +167,22 @@ public class ProgramStep {
 		//programPage.getPopupScreen();
 	}
 	
-	@When("User clicks on Delete button")
-	public void user_clicks_on_delete_button() {
-		programPage.selectProgram();
-		programPage.clickMultipleDelete();
+	@When("User clicks on {string} Delete button")
+	public void user_clicks_on_text_delete_button(String type) {
+		System.out.println("type::"+type);
+		if(type.equalsIgnoreCase("multiple")) {
+			System.out.println("Multiple");
+			JavascriptExecutor js = (JavascriptExecutor) context.getDriver(); 
+			WebElement myelement = programPage.getMultipleCheckBox();
+			js.executeScript("arguments[0].click()", myelement);
+			programPage.clickMultipleDelete();
+		}else if(type.equalsIgnoreCase("single row")) {
+			System.out.println("Single row");
+			programPage.selectProgram();
+			programPage.clickSingleDelBtn();
+		}
+		
+		
 	}
 	
 	@Then("User lands on Confirm Deletion form.")
@@ -171,14 +192,17 @@ public class ProgramStep {
 	    Assert.assertEquals(c, Util.CONFIRM_ALERT);
 	}
 	
-	@Given("User is on Confirm Deletion form")
-	public void user_is_on_confirm_deletion_form() {
-		user_clicks_on_delete_button();
+	@Given("User is on {string} Confirm Deletion form")
+	public void user_is_on_text_confirm_deletion_form(String type) {
+		user_clicks_on_text_delete_button(type);
+		/*//user_clicks_on_delete_button();
+		programPage.selectProgram();
+		programPage.clickMultipleDelete();*/
 	}
 
 	@When("User clicks no button")
 	public void user_clicks_no_button() {
-	   programPage.clickNoBtn();
+		//programPage.clickNoBtn();
 	}
 
 	@Then("User can see confirm deletion form disappears")
@@ -194,6 +218,34 @@ public class ProgramStep {
 
 	@Then("User can see success message")
 	public void user_can_see_success_message() {
+		ngDriver.waitForAngularRequestsToFinish();
+		String str = programPage.checkSuccessMsg();
+		Assert.assertEquals(str, Util.SUCCESS_STR);
+	}
+	
+	@When("User selects more than one Program using checkbox")
+	public void user_selects_more_than_one_program_using_checkbox() {
+		JavascriptExecutor js = (JavascriptExecutor) context.getDriver(); 
+		WebElement myelement = programPage.getMultipleCheckBox();
+		js.executeScript("arguments[0].click()", myelement);
+	}
+
+	@Then("All programs are shown selected")
+	public void all_programs_are_shown_selected() {
+	    By checkedBoxes = programPage.areBoxesChecked();
 	    
+		List<WebElement> element = new WebDriverWait(context.getDriver(), Duration.ofSeconds(50))
+		        .until(ExpectedConditions.presenceOfAllElementsLocatedBy(checkedBoxes));
+		
+		System.out.println("check::"+element.size());
+		for(int i=0;i<element.size();i++) {
+			String c = element.get(i).getAttribute("class");
+			System.out.println("row " + i +": "+ c);
+			if(c.contains(Util.CHECK_HIGHLIGHT)) {
+				System.out.println("class"+c);
+			}else {
+				Assert.assertEquals(c, Util.CHECK_HIGHLIGHT);
+			}
+		}
 	}
 }

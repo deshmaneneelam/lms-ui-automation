@@ -60,8 +60,11 @@ public class Program {
 	@FindBy(xpath="//div[@class='p-checkbox-box']")
 	private WebElement multilCheck;
 	
-	@FindBy(xpath="//div[@aria-checked='true']")
-	private List<WebElement> checkedBoxes;
+	
+	//tbody/tr[4]/td[5]/div[1]/span[2]/button[1]/span[1]
+	//tbody//div[@aria-checked='true']
+	//@FindBy(xpath="/html[1]/body[1]/app-root[1]/app-home[1]/app-program[1]/div[1]/mat-card[1]/mat-card-content[1]/p-table[1]/div[1]/div[1]/table[1]/tbody[1]/tr/td[1]")
+	//private List<WebElement> checkedBoxes;
 	
 	@FindBy(xpath="//tbody//div[@aria-checked='true']")
 	private WebElement rowCheckBoxIfChecked;
@@ -86,9 +89,16 @@ public class Program {
 	@FindBy(xpath="//p-confirmdialog//div[3]/button[2]")
 	private WebElement deleteYesBtn;
 	
-	@FindBy(xpath="//p-toast//div[@role='alert']//div/div[1]")
-	private WebElement successMsg;
+	By successMsg = By.xpath("//p-toast//div[@role='alert']//div/div[1]");
+
+	By checkedBoxes = By.xpath("//tbody//div[@aria-checked='true']");
 	
+	@FindBy(xpath="//tbody/tr[1]/td[5]/div[1]/span[2]/button[1]")
+	private WebElement singleDeleteBtn;
+	
+	@FindBy(xpath="//div[@class='p-paginator-bottom p-paginator p-component ng-star-inserted']/span[1]")
+	private WebElement showingCnt;
+			
 	/**
 	 * Verify title
 	 * @return string
@@ -142,42 +152,33 @@ public class Program {
 		return tbody;
 	}
 	
-	/*public void getMultipleCheckBox() {
-		try {
-			Thread.sleep(10000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		multilCheck.click();
-		System.out.println("Aftercheck");
-		
+	public WebElement getMultipleCheckBox() {
+		return multilCheck;
 	}
 	
-	public void areBoxesChecked() {
+	public By areBoxesChecked() {
+		return checkedBoxes;
 		
-		try {
+		/*try {
 			Thread.sleep(10000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		List<WebElement> check = new WebDriverWait(driver, Duration.ofSeconds(50))
-		        .until(ExpectedConditions.visibilityOfAllElements(checkedBoxes));
+		List<WebElement> element = new WebDriverWait(driver, Duration.ofSeconds(50))
+		        .until(ExpectedConditions.presenceOfAllElementsLocatedBy(checkedBoxes));
 		
-		
-		//List<WebElement> check =  checkedBoxes;
-		System.out.println("check::"+check.size());
-		for(int i=0;i<check.size();i++) {
-			boolean c = check.get(i).isSelected();
-			System.out.println("is checked : "+ c);
-			if(c==false) {
-				Assert.assertEquals(false,true);
+		System.out.println("check::"+element.size());
+		for(int i=0;i<element.size();i++) {
+			String c = element.get(i).getAttribute("class");
+			System.out.println("row " + i +": "+ c);
+			if(c.contains(Util.CHECK_HIGHLIGHT)) {
+				System.out.println("class"+c);
 			}else {
-				System.out.println("Checked");
+				Assert.assertEquals(c, Util.CHECK_HIGHLIGHT);
 			}
-		}
-	}*/
+		}*/
+	}
 	
 	public void isChecked() {
 		String c = driver.findElement(By.xpath("//tbody//div[@aria-checked='true']")).getAttribute("class");
@@ -227,5 +228,19 @@ public class Program {
 	
 	public WebElement isExist() {
 		return deleteAlert;
+	}
+	
+	public String checkSuccessMsg() {
+		WebElement x = new WebDriverWait(driver, Duration.ofSeconds(50))
+		        .until(ExpectedConditions.elementToBeClickable(successMsg));
+		return x.getText();
+	}
+	
+	public void clickSingleDelBtn() {
+		singleDeleteBtn.click();
+	}
+	
+	public void getShowingCntText() {
+		showingCnt.getText();
 	}
 }

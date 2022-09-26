@@ -9,19 +9,29 @@ Feature: Search Program
   Scenario Outline: Search Program By Name
     Given User is logged on to LMS website
     When User enters <searchPhrase> into search box
-    Then Entries for <searchPhrase> in "nameColumn" are shown
+    Then Entries for <searchPhrase> in 'nameColumn' are shown
 
     Examples: 
       | searchPhrase |
       | sdet         |
-      | java         |
+      | java |
+    
 
   Scenario Outline: Search Program By Description
     Given User is on Program page
     When User enters <searchPhrase> into search box
-    Then Entries for <searchPhrase> in "descColumn" are shown
+    Then Entries for <searchPhrase> in 'descColumn' are shown
 
     Examples: 
       | searchPhrase |
-      | JSelenium|
-    
+      | JSelenium    |
+
+  Scenario Outline: Search Program By Status
+    Given User is on Program page
+    When User enters <searchPhrase> into search box
+    Then Entries for <searchPhrase> in 'actionColumn' are shown
+
+    Examples: 
+    | searchPhrase |
+      | Active |
+      | Inactive |

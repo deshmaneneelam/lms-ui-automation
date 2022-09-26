@@ -12,6 +12,8 @@ public class Util {
 	public static final String CONFIRM_ALERT = "Confirm";
 	public static final String DELETE_SUCCESS_MSG = "Successful Program Deleted";
 	public static final String LOGIN_HEADING = "Please login to LMS application";
+	public static final String SUCCESS_STR = "Successful";
+	public static final String DELETE_MULTIPLE_MSG = "Successful Programs Deleted";
 	
 	
 	
