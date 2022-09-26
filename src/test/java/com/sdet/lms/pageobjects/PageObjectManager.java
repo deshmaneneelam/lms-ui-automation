@@ -1,6 +1,9 @@
 package com.sdet.lms.pageobjects;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class PageObjectManager {
 
@@ -12,6 +15,7 @@ public class PageObjectManager {
 	private Login loginPage;
 	private Assignment assignPage;
 	private HomePage homePage;
+	private Registration registrationPage;
 	
 	public PageObjectManager(WebDriver d) {
 		this.driver = d;
@@ -40,4 +44,8 @@ public class PageObjectManager {
 	public HomePage getHomePage() {
 		return (homePage == null) ? homePage = new HomePage(driver) : homePage;
 	}*/
+	public Registration getRegistrationPage() {
+
+		return (registrationPage == null) ? registrationPage = new Registration(driver) : registrationPage;
+	}
 }
