@@ -25,10 +25,10 @@ public class BatchStep {
 	}
 
 	@When("User is on Batch page")
-	public void user_is_on_batch_page() throws InterruptedException {
+	public void user_is_on_batch_page() {
 
 		batch.onBatchPage();
-		Thread.sleep(5000);
+
 	}
 
 	@Then("User should see the Batch page heading")
@@ -46,28 +46,29 @@ public class BatchStep {
 
 	@Then("verify that number of records displayed on the page are five")
 	public void verify_that_number_of_records_displayed_on_the_page_are_five() {
-
+		batch.scrolldown();
 		batch.showingFiveRecords();
 
 	}
 
-	@When("user clicks on search box with {string} entered in it")
-	public void user_clicks_on_search_box_with_entered_in_it(String string) {
+	@When("user clicks on search box with text entered in it")
+	public void user_clicks_on_search_box_with_text_entered_in_it() {
 
+		batch.onBatchPage();
 		System.out.println("User entered text in search box");
 
 	}
 
 	@Then("records of that  {string} are displayed")
 	public void records_of_that_are_displayed(String searchitem) {
-
+		batch.onBatchPage();
 		batch.searchBatchName(searchitem);
 
 	}
 
 	@When("User clicks on Edit button")
 	public void user_clicks_on_edit_button() {
-
+		batch.onBatchPage();
 		batch.clickEditBtn();
 	}
 
@@ -79,7 +80,8 @@ public class BatchStep {
 
 	@Given("User is on Batch details page")
 	public void user_is_on_batch_details_page() {
-
+		batch.onBatchPage();
+		batch.clickEditBtn();
 		batch.batchDetailsForm();
 		System.out.println("User is on Btach details page");
 	}
@@ -98,8 +100,12 @@ public class BatchStep {
 
 	@When("user clicks on cancel button")
 	public void user_clicks_on_cancel_button() {
+		batch.onBatchPage();
+		batch.clickEditBtn();
+		batch.batchDetailsForm();
+		// batch.cancelEditBtn();
+		batch.batchFormCancel();
 
-		batch.cancelEditBtn();
 	}
 
 	@Then("user can see batch details are notupdated")
@@ -110,25 +116,36 @@ public class BatchStep {
 
 	@When("user clicks on save button")
 	public void user_clicks_on_save_button() {
-
+		batch.onBatchPage();
+		batch.clickEditBtn();
+		batch.batchDetailsForm();
 		batch.saveEditBtn();
+
 	}
 
 	@Then("user can see successful alert")
 	public void user_can_see_successful_alert() {
-
+		batch.onBatchPage();
+		batch.clickEditBtn();
+		batch.batchDetailsForm();
+		batch.saveEditBtn();
 		batch.saveEditAlert();
 	}
 
 	@When("user searches with newly updated batch {string}")
 	public void user_searches_with_newly_updated_batch(String editedBatchName) {
+		batch.onBatchPage();
+		batch.searchBatchName(editedBatchName);
+	}
 
+	@Then("User can see updated values of {string} fields")
+	public void User_can_see_updated_values_of_fields(String editedBatchName) {
 		batch.searchBatchName(editedBatchName);
 	}
 
 	@When("user selects multiple batches")
 	public void user_selects_multiple_batches() {
-
+		batch.onBatchPage();
 		batch.multipleBoxesSelection();
 	}
 
@@ -140,25 +157,34 @@ public class BatchStep {
 
 	@When("user clicks on delete button")
 	public void user_clicks_on_delete_button() {
-
+		batch.onBatchPage();
+		batch.multipleBoxesSelection();
 		batch.clickOnDelete();
+		batch.batchDetailsForm();
+		batch.clickOnDelete();
+
 	}
 
 	@Then("user lands on deletion form")
 	public void user_lands_on_deletion_form() {
-
+		// batch.onBatchPage();
+		// batch.clickOnDelete();
 		batch.confirmDeleteForm();
 	}
 
 	@Given("User is on confirm deletion form")
 	public void user_is_on_confirm_deletion_form() {
-
+		batch.onBatchPage();
+		batch.clickOnDelete();
 		batch.confirmDeleteForm();
+		System.out.println("User is on confirm deletion form");
 	}
 
 	@When("user clicks on Yes button")
 	public void user_clicks_on_yes_button() {
-
+		batch.onBatchPage();
+		batch.clickOnDelete();
+		batch.confirmDeleteForm();
 		batch.yesDelete();
 	}
 
@@ -170,7 +196,9 @@ public class BatchStep {
 
 	@When("user clicks on No button")
 	public void user_clicks_on_no_button() {
-
+		batch.onBatchPage();
+		batch.clickOnDelete();
+		batch.confirmDeleteForm();
 		batch.noDelete();
 	}
 

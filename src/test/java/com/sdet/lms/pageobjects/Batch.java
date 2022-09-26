@@ -1,19 +1,24 @@
 package com.sdet.lms.pageobjects;
 
+import java.time.Duration;
 import java.util.Arrays;
 
-import org.openqa.selenium.Keys;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import com.sdet.lms.utilities.Util;
+
 public class Batch {
 
 	WebDriver driver;
+	JavascriptExecutor js;
 
 	public Batch(WebDriver driver) {
 		this.driver = driver;
+		js = (JavascriptExecutor) driver;
 		PageFactory.initElements(driver, this);
 	}
 
@@ -34,14 +39,21 @@ public class Batch {
 	@FindBy(xpath = "//i[@class='pi pi-search']")
 	WebElement searchBtn;
 
-	@FindBy(xpath = "//span[contains(text(),'A New Batch')]")
+	@FindBy(xpath = "//p-table/div/div[1]/table/tbody/tr/td[2]")
+	WebElement updatedValueinSearch;
+
+//	@FindBy(xpath = "//span[contains(text(),'A New Batch')]")
+	@FindBy(css = "#new > span.p-button-label")
 	WebElement addBatch;
 
 	@FindBy(xpath = "//div/span[2]/button[5]")
 	WebElement batchRecords;
 
-	@FindBy(xpath = "//span[contains(text(),'Showing 1 to 5 of 60 entries')]")
+	@FindBy(xpath = "//span[contains(text(),'Showing 1 to 5 of')]")
 	WebElement fiveRecords;
+
+	@FindBy(xpath = "//div[contains(text(),'In total there are')]")
+	WebElement intotalrecords;
 
 	@FindBy(xpath = "//tr/td[2]")
 	WebElement batchrecordName;
@@ -52,11 +64,20 @@ public class Batch {
 	@FindBy(xpath = "//span[contains(text(),'Batch Details')]")
 	WebElement batchDetailsForm;
 
+	@FindBy(css = ".p-button-icon.p-button-icon-left.pi.pi-times")
+	WebElement cancelBatchDetailsBtn;
+
 	@FindBy(id = "batchName")
 	WebElement batchName;
 
+	@FindBy(xpath = "//input[@id='batchName']")
+	WebElement batchNameConfirm;
+
 	@FindBy(id = "batchDescription")
 	WebElement batchDescription;
+
+	@FindBy(xpath = "//input[@id='batchDescription']")
+	WebElement batchDescrConf;
 
 	@FindBy(xpath = "//input[@placeholder='Select a Program name']")
 	WebElement programName;
@@ -67,10 +88,16 @@ public class Batch {
 	@FindBy(id = "batchNoOfClasses")
 	WebElement batchnoOfClasses;
 
-	@FindBy(xpath = "//span[contains(text(),'Cancel')]")
+	@FindBy(xpath = "//input[@id='batchNoOfClasses']")
+	WebElement batchClassesconfirm;
+
+	// @FindBy(xpath = "//span[contains(text(),'Cancel')]")
+//	@FindBy(xpath = "//p-dialog/div/div/div[3]/button[1]/span[2]")
+	@FindBy(css = "button.p-button-rounded.p-button-danger.p-button.p-component.ng-star-inserted > span.p-button-label")
 	WebElement cancelBtn;
 
-	@FindBy(xpath = "//span[contains(text(),'Save')]")
+//	@FindBy(xpath = "//button[@label='Save']")
+	@FindBy(css = "button.p-button-rounded.p-button-success.p-button.p-component.ng-star-inserted")
 	WebElement saveBtn;
 
 	@FindBy(xpath = "//div[@role='checkbox' and @class='p-checkbox-box']")
@@ -85,10 +112,12 @@ public class Batch {
 	@FindBy(xpath = "//span[contains(text(),'Confirm')]")
 	WebElement confirmDelete;
 
-	@FindBy(xpath = "//span[contains(text(),'Yes')]")
+//	@FindBy(xpath = "//span[contains(text(),'Yes')]")
+	@FindBy(css = ".p-component.ng-star-inserted > span.p-button-label")
 	WebElement deleteYes;
 
-	@FindBy(xpath = "//span[text()='No']")
+//	@FindBy(xpath = "//span[text()='No']")
+	@FindBy(css = ".p-confirm-dialog-reject.p-ripple.p-button.p-component.ng-star-inserted > span.p-button-label")
 	WebElement deleteNoBtn;
 
 	@FindBy(xpath = "//span[contains(text(),'Showing 0 to 0 of 0 entries')]")
@@ -144,19 +173,26 @@ public class Batch {
 		 */
 	}
 
-	public void showingFiveRecords() {
+	public String showingFiveRecords() {
 		System.out.println("Five records shown on page 1:" + fiveRecords.getText());
+		return fiveRecords.getText();
 	}
 
 	public void searchBatchName(String searchitem) {
 		searchbox.clear();
 		searchbox.sendKeys(searchitem);
-		// searchBtn.click();
-		searchbox.sendKeys(Keys.ENTER);
+		searchBtn.click();
+		// searchbox.sendKeys(Keys.ENTER);
+	}
+
+	public void capturenameSearch() {
+		System.out.println(updatedValueinSearch.getText());
+
 	}
 
 	public void clickEditBtn() {
 		editBtn.click();
+
 	}
 
 	public void batchDetailsForm() {
@@ -166,22 +202,33 @@ public class Batch {
 
 	public void enterBatchDetailsForm(String batchnameform, String descriptionform, String progrNameform,
 			String classes) {
+		batchName.clear();
 		batchName.sendKeys(batchnameform);
+		batchDescription.clear();
 		batchDescription.sendKeys(descriptionform);
+		programName.clear();
 		programName.sendKeys(progrNameform);
+		batchnoOfClasses.clear();
 		batchnoOfClasses.sendKeys(classes);
-		activeradioBtn.click();
+		// activeradioBtn.click();
+		saveBtn.click();
+
 	}
 
 	public void valuesBatchForm() {
-		System.out.println("batchname in form is: " + batchName.getText());
-		System.out.println("batchdescription in form is: " + batchDescription.getText());
+		System.out.println("batchname in form is: " + batchNameConfirm.getText());
+		System.out.println("batchdescription in form is: " + batchDescrConf.getText());
 		System.out.println("programName in form is: " + programName.getText());
-		System.out.println("batchnoOfClasses in form is: " + batchnoOfClasses.getText());
+		System.out.println("batchnoOfClasses in form is: " + batchClassesconfirm.getText());
+	}
+
+	public void batchFormCancel() {
+		cancelBatchDetailsBtn.click();
 	}
 
 	public void cancelEditBtn() {
 		cancelBtn.click();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(Util.IMPLICIT_WAIT));
 	}
 
 	public void saveEditBtn() {
@@ -206,6 +253,7 @@ public class Batch {
 		for (WebElement eachCheckbox : CheckBoxes) {
 			eachCheckbox.click();
 		}
+
 	}
 
 	public void confirmDeleteForm() {
@@ -294,4 +342,10 @@ public class Batch {
 		System.out.println(beforeSort);
 
 	}
+
+	public void scrolldown() {
+		js.executeScript("arguments[0].scrollIntoView();", intotalrecords);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(4));
+	}
+
 }
