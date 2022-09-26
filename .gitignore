@@ -1,7 +1,5 @@
-<<<<<<< Updated upstream
-=======
+*.log
 test-output/*
->>>>>>> Stashed changes
 build/
 .idea/
 .gradle/
