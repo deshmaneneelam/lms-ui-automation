@@ -2,11 +2,20 @@ package com.sdet.lms.stepdefinition;
 
 import org.testng.Assert;
 
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+
+import com.paulhammant.ngwebdriver.NgWebDriver;
 import com.sdet.lms.pageobjects.Program;
 import com.sdet.lms.utilities.ContextUI;
 import com.sdet.lms.utilities.Util;
 
 import io.cucumber.java.After;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
@@ -14,10 +23,12 @@ public class ProgramStep {
 
 	ContextUI context;
 	Program programPage;
+	NgWebDriver ngDriver;
 	
 	public ProgramStep(ContextUI c) {
 		this.context = c;
 		programPage = context.getPageObjectManager().getProgramPage();
+		ngDriver = context.getNgWebDriver();
 	}
 	
 
@@ -71,35 +82,120 @@ public class ProgramStep {
 	
 	@When("^User enters (.*) into search box$")
 	public void user_enters_text_into_search_box(String searchPhrase) {
-		System.out.println("searchPhrase"+searchPhrase);
-	   // programPage = new Program(driver);
+		System.out.println("searchPhrase::"+searchPhrase);	  
 	    programPage.getSearchElement().sendKeys(searchPhrase);
+	    ngDriver.waitForAngularRequestsToFinish();
 	}
 	
-	
-
-	@Then("Entries for text are shown")
-	public void entries_for_text_are_shown() {
-	    
+	@Then("^Entries for (.*) in (.*) are shown$")
+	public void entries_for_text_in_text_are_shown(String searchPhrase,String columnName) {
+		
+		ngDriver.waitForAngularRequestsToFinish();
+		
+		List<WebElement> rows = programPage.getTbody();
+		
+		System.out.println("row count::"+rows.size());
+		
+		int totalCount = rows.size();
+		if(totalCount == 0) {
+			System.out.println("No Records");
+		}else {
+			for(int i=0;i<totalCount;i++) {
+				String col ;
+				if(columnName=="nameColumn") {
+					col = rows.get(i).findElement(By.xpath("//td[2]")).getText();
+				}else {
+					col = rows.get(i).findElement(By.xpath("//td[3]")).getText();
+				}
+				System.out.println("Column::"+col+"::row::"+i);
+				System.out.println("Is string matchting::"+ columnName.equalsIgnoreCase(searchPhrase));
+				if(col.contains(searchPhrase)) {
+					System.out.println("Search::"+col);
+				}
+		   }
+	   }
 	}
 	
 	@When("User clicks A New Program button")
 	public void user_clicks_a_new_program_button() {
 		//programPage = new Program(driver);
 		programPage.addProgram();
+		
 	}
 
-
-	@Then("User lands on Program Details form")
-	public void user_lands_on_program_details_form() {
-	    System.out.println("7000");
-	}
 	
 	@After
 	public void close() {
 		System.out.println("In close");
-		context.getDriver().quit();
+		//context.getDriver().quit();
 	}
 	
+	@When("User selects Program using checkbox")
+	public void user_selects_program_using_checkbox() {
+		programPage.selectProgram();
+
+	}
+
+	@Then("Program gets selected")
+	public void program_gets_selected() {
+		programPage.isChecked();
+	}
 	
+	@Given("User is on Program page after login")
+	public void user_is_on_program_page_after_login() {
+	   
+	}
+
+	@When("User clicks on edit button")
+	public void user_clicks_on_edit_button() {
+		JavascriptExecutor js = (JavascriptExecutor) context.getDriver(); 
+		WebElement myelement = programPage.clickEdit();
+		js.executeScript("arguments[0].click()", myelement);
+	}
+	
+	@Then("User lands on Program Details form")
+	public void user_lands_on_program_details_form() {
+		System.out.println("*****get popup****");
+				
+		//programPage.getPopupScreen();
+	}
+	
+	@When("User clicks on Delete button")
+	public void user_clicks_on_delete_button() {
+		programPage.selectProgram();
+		programPage.clickMultipleDelete();
+	}
+	
+	@Then("User lands on Confirm Deletion form.")
+	public void user_lands_on_confirm_deletion_form() {
+		String c = programPage.confirmDeleteAlert();
+	    System.out.println("delete text::"+c);
+	    Assert.assertEquals(c, Util.CONFIRM_ALERT);
+	}
+	
+	@Given("User is on Confirm Deletion form")
+	public void user_is_on_confirm_deletion_form() {
+		user_clicks_on_delete_button();
+	}
+
+	@When("User clicks no button")
+	public void user_clicks_no_button() {
+	   programPage.clickNoBtn();
+	}
+
+	@Then("User can see confirm deletion form disappears")
+	public void user_can_see_confirm_deletion_form_disappears() {	
+		programPage.isExist().isDisplayed();
+	    System.out.println("delete text::"+programPage.isExist().isDisplayed());
+	}
+	
+	@When("User clicks Yes button")
+	public void user_clicks_yes_button() {
+		programPage.clickYesBtn();
+	}
+
+	@Then("User can see success message")
+	public void user_can_see_success_message() {
+	    
+	}
 }

@@ -10,6 +10,8 @@ public class PageObjectManager {
 	private Batch batchPage;
 	private User userPage;
 	private Login loginPage;
+	private Assignment assignPage;
+	private HomePage homePage;
 	
 	public PageObjectManager(WebDriver d) {
 		this.driver = d;
@@ -30,4 +32,12 @@ public class PageObjectManager {
 	public Login getLoginPage() {
 		return (loginPage == null) ? loginPage = new Login(driver) : loginPage;
 	}
+	
+	/*public Assignment getAssignmentPage() {
+		return (assignPage == null) ? assignPage = new Assignment(driver) : assignPage;
+	}
+	
+	public HomePage getHomePage() {
+		return (homePage == null) ? homePage = new HomePage(driver) : homePage;
+	}*/
 }

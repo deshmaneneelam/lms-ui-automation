@@ -1,3 +1,7 @@
+<<<<<<< Updated upstream
+=======
+test-output/*
+>>>>>>> Stashed changes
 build/
 .idea/
 .gradle/
@@ -82,4 +86,8 @@ nb-configuration.xml
 ##############################
 ## OS X
 ##############################
+<<<<<<< Updated upstream
 .DS_Store
+=======
+.DS_Store
+>>>>>>> Stashed changes
