@@ -12,16 +12,18 @@ import io.cucumber.testng.CucumberOptions;
 
 
 @RunWith(Cucumber.class)
-@CucumberOptions( 
-		features = {"src/test/resources/feature/User.feature",
-				"src/test/resources/feature/Programs/Heading.feature",
-				"src/test/resources/feature/Programs/Footer.feature",
-				"src/test/resources/feature/Batch.feature"},
+/*@CucumberOptions( 
+		features = {"src/test/resources/feature/User.feature"},
 		glue = { "com.sdet.lms.stepdefinition" },
-		
-		plugin = { "pretty", "html:target/LmsBdd.html" },
+				tags = "@runit",
+		plugin = { "pretty", "html:target/LmsBdd.html", "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm" },
+		monochrome = true)*/
+@CucumberOptions( 
+		features = {"src/test/resources/feature/Programs/"},
+		glue = { "com.sdet.lms.stepdefinition" },
+				tags = "not @runit",
+		plugin = { "pretty", "html:target/LmsBdd.html", "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm" },
 		monochrome = true)
-
 public class TestRunner extends AbstractTestNGCucumberTests {
 
 	 @Override
