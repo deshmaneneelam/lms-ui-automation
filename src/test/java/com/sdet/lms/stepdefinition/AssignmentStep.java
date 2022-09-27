@@ -52,6 +52,7 @@ public class AssignmentStep {
 		String totalRecordsBelowTable = assignment.recordsBelowAssgnmtTable();
 		String expRecords = Util.IN_TOTAL_STR1 + assignment.getTotalRecords() + Util.IN_TOTAL_STR3;
 		Assert.assertEquals(totalRecordsBelowTable, expRecords);
+
 	}
 
 	@Then("user should validate search textbox has text as search on Assignment page")
