@@ -12,7 +12,7 @@ import io.cucumber.testng.CucumberOptions;
 @io.cucumber.junit.CucumberOptions(features = { "src/test/resources/feature/User.feature" }, glue = {
 		"com.sdet.lms.stepdefinition" }, tags = "not @ignored", plugin = { "pretty", "html:target/LmsBdd.html",
 				"io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm" }, monochrome = true)
-@CucumberOptions(features = { "src/test/resources/feature/Programs/" }, glue = {
+@CucumberOptions(features = { "src/test/resources/feature/" }, glue = {
 		"com.sdet.lms.stepdefinition" }, tags = "not @ignored", plugin = { "pretty", "html:target/LmsBdd.html",
 				"io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm" }, monochrome = true)
 
