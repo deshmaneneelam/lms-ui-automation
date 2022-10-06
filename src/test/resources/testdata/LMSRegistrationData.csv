@@ -1,0 +1,30 @@
+ScenarioName,Value
+Validating the heading of the Registration form,LMS - Learning Management System
+Validating the login button visibility,login
+Validating the login button functionality,LandinLogin
+Validating the Sign Up button visibility,Sign up button
+user fills the First Name field,Sairam
+user fills the Last Name field,Jaigurudev
+user fills the Street Name Field,Jaime ct
+user fills the House Number Field,21
+User fills the Zip field,7950
+User fills the City Name field,Morrisplains
+User selects the State field,NJ
+user fills the Phone Number,123456789
+user selects the Birth Date,12345678
+User fills UserName,Jeyadevi
+user fills Password,Bathe@989
+Validating the Sign Up form with all fields empty,
+Validating the First Name field on Registeration Page,Laks hmi 3
+Validating the Last Name field on Registeration Page,*** Dha
+Validating the Address field on Registeration Page,***&&&^&
+Validating the Street Name field on Registeration Page,Par sip pany Ro ad
+Validating the House Number field on Registeration Page,--
+Validating the Zip field on Registeration Page,Nature
+Validating the City field on Registeration Page,87878
+Validating the State field on Registeration Page,87jsf
+Validating the BirthDate field on Registeration Page,58849
+Validating the UserName field on Registeration Page,965895
+Validating the Password field on Registeration Page,kl gngk kfg
+Validating the signup form with existing Username,Jeyadevi
+Validating Sign Up form with valid data,Jeyadevi|Bathe|100|Washington Str|White House|Washington DC|01000|6141234567|jeyadevibvj@gmail.com|jeyadevi|Bathe@989
